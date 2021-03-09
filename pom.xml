@@ -72,7 +72,7 @@
         <version>${liquibase.version}</version>
         <configuration>
           <driver>org.postgresql.Driver</driver>
-          <url>jdbc:postgresql://localhost:5432/SpringInterviev?currentSchema=develop</url>
+          <url>jdbc:postgresql://localhost:5432/SpringInterview?currentSchema=develop</url>
           <username>pvzimin</username>
           <password>pvzimin</password>
           <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
