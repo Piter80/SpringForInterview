@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  logicalFilePath="path-independent"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+  <changeSet author="pvzimin" id="1">
+    <createSequence cacheSize="371717"
+      catalogName="client"
+      sequenceName="client_id_seq"
+      startValue="1"
+      incrementBy="1"/>
+    <createTable remarks="Клиенты" tableName="client">
+      <column name="id" remarks="Идентификатор" type="INTEGER"
+        defaultValueSequenceNext="client_id_seq" valueSequenceNext="client_id_seq">
+        <constraints primaryKey="true" primaryKeyName="client_pk"/>
+      </column>
+      <column name="name" type="VARCHAR(200)" remarks="Имя"/>
+      <column name="email" type="VARCHAR(250)" remarks="Емаэйл"/>
+      <column name="phone" type="VARCHAR(20)" remarks="Телефон"/>
+    </createTable>
+
+  </changeSet>
+</databaseChangeLog>
+
+
+
