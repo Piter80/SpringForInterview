@@ -17,9 +17,16 @@ public class ClientService {
 		return repository.findAll();
 	}
 
-	public Client findById (Long id) {
+	public Client findById(Long id) {
 		return repository.findById(id).orElse(null);
 	}
 
+	public void create(Client client) {
+		repository.save(client);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 
 }

@@ -1,7 +1,10 @@
 package com.petrzimin.springinterview.config;
 
+import com.petrzimin.springinterview.model.Permission;
+import com.petrzimin.springinterview.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,7 +20,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		super.configure(http);
+		http
+				.csrf().disable()
+				.authorizeRequests()
+				.antMatchers("/").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/v1/**").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+				.antMatchers(HttpMethod.POST, "/api/v1/**").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
+				.antMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
+				.anyRequest()
+				.authenticated()
+				.and()
+				.httpBasic();
 	}
 
 	@Bean
@@ -27,7 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				User.builder()
 						.username("admin")
 						.password(passwordEncoder().encode("admin"))
-						.roles("ADMIN")
+						.authorities(Role.ADMIN.getAuthorities())
+						.build(),
+				User.builder()
+						.username("user")
+						.password(passwordEncoder().encode("user"))
+						.authorities(Role.USER.getAuthorities())
 						.build()
 		);
 	}
