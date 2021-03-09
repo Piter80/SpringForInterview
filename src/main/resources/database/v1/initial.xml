@@ -5,7 +5,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
   <changeSet author="pvzimin" id="1">
-    <createSequence cacheSize="371717"
+    <createSequence
       catalogName="client"
       sequenceName="client_id_seq"
       startValue="1"
@@ -19,7 +19,10 @@
       <column name="email" type="VARCHAR(250)" remarks="Емаэйл"/>
       <column name="phone" type="VARCHAR(20)" remarks="Телефон"/>
     </createTable>
+  </changeSet>
 
+  <changeSet author="pvzimin" id="2">
+    <sqlFile path="src/main/resources/database/v1/initialData.sql"/>
   </changeSet>
 </databaseChangeLog>
 
