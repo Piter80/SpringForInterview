@@ -24,7 +24,6 @@ public class ClientRestController {
 	@GetMapping
 	@PreAuthorize("hasAuthority('developers:read')")
 	public List<Client> getAll() {
-		//while without Service layer
 		return service.getAll();
 	}
 
