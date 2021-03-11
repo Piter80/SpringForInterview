@@ -1,6 +1,7 @@
 package com.petrzimin.springinterview.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -44,7 +45,7 @@ public class JwtTokenProvider {
 		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("role", role);
 		Date now = new Date();
-		Date validity = new Date(now.getTime() + validityInMilliseconds);
+		Date validity = new Date(now.getTime() + validityInMilliseconds*1000);
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(now)
@@ -64,7 +65,7 @@ public class JwtTokenProvider {
 
 	public Authentication getAuthentication(String token) {
 		UserDetails details = userDetailsService.loadUserByUsername(getUserName(token));
-		return new UsernamePasswordAuthenticationToken(details, details.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
 	}
 
 	public String getUserName (String token) {
